@@ -8,7 +8,7 @@ def isPrime(num):
     elif num >= 1:
         lim = int(num ** (1 / 2)) + 1
 
-        for i in range(3,lim,2):
+        for i in range(3, lim, 2):
             if num % i == 0:
                 return False
 
