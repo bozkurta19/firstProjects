@@ -4,62 +4,68 @@ from time import time
 # LCM (EKOK in Turkish) stands for "Least Common Multiple"
 # GCD (EBOB in Turkish) stands for "Greatest Common Divisor"
 
-# Deneme ile
-def EBOB_v1(x, y):
-    buyuk = max(x, y)
-    kucuk = min(x, y)
+# with trying
+def GCD_v1(x, y):
+    large = max(x, y)
+    small = min(x, y)
 
-    if buyuk % kucuk == 0:
-        return kucuk
+    if large % small == 0:
+        return small
 
-    limit = kucuk // 2
+    lim = small // 2
 
-    for i in range(limit, 0, -1):
+    # Only checking "small" / 2 and integers below cause higher ones can't divide "small" to an integer.
+    for i in range(lim, 0, -1):
         if x % i == 0 and y % i == 0:
             return i
 
 
-# EBOB algoritmasý ile (en hýzlýsý)
-def EBOB_v2(x, y):
-    bolunen = max(x, y)
-    bolen = min(x, y)
+# with Euclidean algorithm (fastest)
+def GCD_v2(x, y):
+    dividend = max(x, y)
+    divisor = min(x, y)
 
-    while bolunen % bolen:
-        bolunen, bolen = bolen, (bolunen % bolen)
+    # using booleans
+    while dividend % divisor:
+        dividend, divisor = divisor, (dividend % divisor)
 
-    return bolen
-
-
-# EKOK - EBOB baðýntýsýný kullanarak
-def EKOK_v1(x, y):
-    return (x * y) / EBOB_v1(x, y)
+    return divisor
 
 
-def EKOK_v2(x, y):
-    return (x * y) / EBOB_v2(x, y)
+# with LCM - GCD relation
+def LCM_v1(x, y):
+    return (x * y) / GCD_v1(x, y)
 
 
-# Deneme ile
-def EKOK_v3(x, y):
-    buyuk = max(x, y)
-    kucuk = min(x, y)
+def LCM_v2(x, y):
+    return (x * y) / GCD_v2(x, y)
 
-    sayi = buyuk
 
-    while sayi % kucuk:
-        sayi += buyuk
+# with trying
+def LCM_v3(x, y):
+    large = max(x, y)
+    small = min(x, y)
 
-    return sayi
+    # starting off with larger number
+    num = large
 
+    # using booleans again and adding larger number to shorten the process
+    while num % small:
+        num += large
+
+    return num
+
+
+print("LCM & GCD Finder")
 
 while True:
-    x = int(input("1. Sayý : "))
-    y = int(input("2. Sayý : "))
+    x = int(input("First number : "))
+    y = int(input("Second number : "))
 
-    baslangic = time()
+    start = time()
 
-    print("Sonuç : {}".format(EKOK_v2(x, y)))
+    print("Result : {}".format(LCM_v2(x, y)))
 
-    bitis = time()
+    end = time()
 
-    print("Süre : {:.3f}\n".format(bitis - baslangic))
+    print("Time : {:.3f}\n".format(end - start))
