@@ -109,7 +109,7 @@ def thPrime4(n):
 
     def findPrimesUnder(num):
 
-        # using a set in case of discarding a number again
+        # using a set in case of discarding the same number again
         # ignoring even numbers
         primes = set(range(3, num, 2))
         primes.add(2)
