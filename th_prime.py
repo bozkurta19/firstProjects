@@ -56,7 +56,6 @@ def thPrime2(n):
 
 # cumulative and with limit
 def thPrime3(n):
-
     if n == 1:
         return 2
 
