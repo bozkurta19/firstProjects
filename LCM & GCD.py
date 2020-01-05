@@ -14,7 +14,7 @@ def GCD_v1(x, y):
 
     lim = small // 2
 
-    # Only checking "small" / 2 and integers below cause higher ones can't divide "small" to an integer.
+    # Only checking "small" / 2 and integers below cause higher ones can't divide "small" without any remainder.
     for i in range(lim, 0, -1):
         if x % i == 0 and y % i == 0:
             return i
@@ -64,7 +64,7 @@ while True:
 
     start = time()
 
-    print("Result : {}".format(LCM_v2(x, y)))
+    print("Result : {}".format(GCD_v2(x, y)))
 
     end = time()
 

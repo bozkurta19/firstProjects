@@ -1,4 +1,5 @@
 def isPrime(num):
+    # shortening the process
     if num == 2:
         return True
 
@@ -6,6 +7,8 @@ def isPrime(num):
         return False
 
     elif num >= 1:
+
+        # only checking square root of the number and below to shorten the process
         lim = int(num ** (1 / 2)) + 1
 
         for i in range(3, lim, 2):

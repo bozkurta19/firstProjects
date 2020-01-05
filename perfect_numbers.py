@@ -1,28 +1,30 @@
 from time import time
 
-def mukemmel_mi(num):
-    bolenler_toplami = 1
 
-    sqrt = num ** (1/2)
+def isPerfect(num):
+    sum_of_divisors = 1
+
+    sqrt = num ** (1 / 2)
     lim = int(sqrt) + 1
 
+    # subtracting the square root if the number is a perfect square not to add the square root 2 times in the for loop
     if sqrt == int(sqrt):
-        bolenler_toplami -= sqrt
+        sum_of_divisors -= sqrt
 
-    for i in range(2,lim):
+    for i in range(2, lim):
         if num % i == 0:
-                bolenler_toplami += i + num / i
+            sum_of_divisors += i + num / i
 
-    return bolenler_toplami == num
+    return sum_of_divisors == num
 
-print("Mükemmel sayýlar : ")
 
-baslangic = time()
+print("Perfect numbers : ")
 
-for i in range(1,100000):
-    if mukemmel_mi(i):
+start = time()
+
+for i in range(1, 100000):
+    if isPerfect(i):
         print(i)
 
-bitis = time()
-
-print("Süre : {:.3f}".format(bitis - baslangic))
+end = time()
+print("Süre : {:.3f}".format(end - start))

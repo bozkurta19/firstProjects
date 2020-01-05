@@ -1,83 +1,146 @@
-#Kümülatif ve limitli
-def inci_asal3(asal_sirasi):
+from math import log, ceil
+from time import time
 
-    if asal_sirasi == 1:
+
+# the simplest and slowest method
+def thPrime1(n):
+    # starting off with 1
+    num = 1
+    prime_order_of_num = 0
+
+    while prime_order_of_num != n:
+
+        num += 1
+        is_prime = True
+
+        for i in range(2, num):
+            if num % i == 0:
+                is_prime = False
+                break
+
+        if is_prime:
+            prime_order_of_num += 1
+
+    return num
+
+
+# with limit and without even numbers
+def thPrime2(n):
+    if n == 1:
         return 2
 
-    sayi = 1
-    asallar = list()
+    num = 1
 
-    while  len(asallar) != asal_sirasi - 1:
+    # setting "prime_order_of_num" since we already used 2
+    prime_order_of_num = 1
 
-        asal_mi = True
-        sayi += 2
+    while prime_order_of_num != n:
 
-        for i in asallar:
+        is_prime = True
+        num += 2
 
-            if i**2 > sayi:
+        # checking the square root of num and number below to shorten the process
+        lim = int(num ** (1 / 2)) + 1
+
+        for i in range(3, lim, 2):
+
+            if num % i == 0:
+                is_prime = False
                 break
 
-            if sayi % i == 0:
-                asal_mi = False
+        if is_prime:
+            prime_order_of_num += 1
+
+    return num
+
+
+# cumulative and with limit
+def thPrime3(n):
+    if n == 1:
+        return 2
+
+    num = 1
+    primes = list()
+
+    while len(primes) != n - 1:
+
+        is_prime = True
+        num += 2
+
+        for i in primes:
+
+            if i ** 2 > num:
                 break
 
-        if asal_mi:
-            asallar.append(sayi)
+            if num % i == 0:
+                is_prime = False
+                break
 
-    return sayi
+        if is_prime:
+            primes.append(num)
 
-#En hýzlýsý (Sieve of Erathosthenes)
-def inci_asal4(asal_sirasi):
-    def is_prime(sayi):
-        if sayi % 2 == 0:
+    return num
+
+
+# Sieve of Erathosthenes (fastest)
+def thPrime4(n):
+    def is_prime(num):
+
+        # ignored 2 since we're not gonna check it
+        if num % 2 == 0:
             return False
 
         else:
-            limit = int(sayi ** (1/2)) + 1
+            lim = int(num ** (1 / 2)) + 1
 
-            for i in range(3,limit,2):
-                if sayi % i == 0:
+            for i in range(3, lim, 2):
+                if num % i == 0:
                     return False
 
             return True
 
-
-    def upper_bound_for_p_n(n):
+    def upper_bound_for_th_prime(n):
         if n < 6:
             return 12
 
         else:
             return int(n * (log(n) + log(log(n))))
 
-
     def find_primes_under(num):
-        primes = set(range(3,num,2))
+
+        # ignoring even numbers
+        primes = set(range(3, num, 2))
         primes.add(2)
 
         lim = ceil(num ** (1 / 2))
 
-        for i in range(3,lim,2):
+        for i in range(3, lim, 2):
             if is_prime(i):
-                for delete in range(i * i,num,i * 2):
-                    primes.discard(delete)
+
+                # i * 2 because we don't use any even number in the loop.
+                for j in range(i * i, num, i * 2):
+                    primes.discard(j)
 
         return primes
 
-
-    primes = find_primes_under(upper_bound_for_p_n(asal_sirasi))
+    primes = find_primes_under(upper_bound_for_th_prime(n))
 
     primes = list(primes)
 
     primes.sort()
 
-    return primes[asal_sirasi - 1]
+    # because of indexing
+    return primes[n - 1]
 
 
-start = time()
+while True:
+    order_of_prime = int(input("Order of the prime : "))
 
-result = inci_asal4(10001)
+    start = time()
 
-end = time()
+    result = thPrime4(order_of_prime)
 
-print("Sonuç : {}".format(result))
-print("Süre : {}".format(end - start))
+    end = time()
+
+    print("\nResult : {}".format(result))
+    print("Time : {}\n".format(end - start))

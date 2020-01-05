@@ -1,43 +1,43 @@
 from time import time
 
 
-def bolenleri_bul(num):
-    bolenler = {1,num}
+def findDivisors(num):
+    divisors = {1, num}
 
     lim = int(num ** (1 / 2)) + 1
 
-    for i in range(2,lim):
+    for i in range(2, lim):
         if num % i == 0:
-            bolenler.add(i)
-            bolenler.add(int(num / i))
+            divisors.add(i)
+            divisors.add(int(num / i))
 
-    bolenler = list(bolenler)
-    bolenler.sort()
+    divisors = list(divisors)
+    divisors.sort()
 
-    return bolenler
+    return divisors
 
 
 print("""Pozitif Tam Bölen Bulma
 
-(Çýkmak için \"q\" yazýnýz.)
+(Çıkmak için \"q\" yazınız.)
 """)
 
 while True:
 
-    sayi = input("Sayý : ")
+    num = input("Sayı : ")
 
-    if sayi == "q":
-        print("Program Sonlandýrýlýyor...")
+    if num == "q":
+        print("Program Sonlandırılıyor...")
         break
 
-    elif int(sayi) <= 0:
-        print("Geçerli sayý giriniz")
+    elif int(num) <= 0:
+        print("Geçerli sayı giriniz")
 
     else:
-        baslangic = time()
+        start = time()
 
-        print("Pozitif tam bölenleri :",bolenleri_bul(int(sayi)))
+        print("Pozitif tam bölenleri :", findDivisors(int(num)))
 
-        bitis = time()
+        end = time()
 
-        print("Süre : {:.3f}\n".format(bitis - baslangic))
+        print("Süre : {:.3f}\n".format(end - start))
