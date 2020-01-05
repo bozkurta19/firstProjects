@@ -56,12 +56,14 @@ def thPrime2(n):
 
 # cumulative and with limit
 def thPrime3(n):
+
     if n == 1:
         return 2
 
     num = 1
     primes = list()
 
+    # because we didn't add 2 to primes list
     while len(primes) != n - 1:
 
         is_prime = True
@@ -84,7 +86,7 @@ def thPrime3(n):
 
 # Sieve of Erathosthenes (fastest)
 def thPrime4(n):
-    def is_prime(num):
+    def isPrime(num):
 
         # ignored 2 since we're not gonna check it
         if num % 2 == 0:
@@ -99,15 +101,16 @@ def thPrime4(n):
 
             return True
 
-    def upper_bound_for_th_prime(n):
+    def upperBoundFor(n):
         if n < 6:
             return 12
 
         else:
             return int(n * (log(n) + log(log(n))))
 
-    def find_primes_under(num):
+    def findPrimesUnder(num):
 
+        # using a set in case of discarding a number again
         # ignoring even numbers
         primes = set(range(3, num, 2))
         primes.add(2)
@@ -115,7 +118,7 @@ def thPrime4(n):
         lim = ceil(num ** (1 / 2))
 
         for i in range(3, lim, 2):
-            if is_prime(i):
+            if isPrime(i):
 
                 # i * 2 because we don't use any even number in the loop.
                 for j in range(i * i, num, i * 2):
@@ -123,7 +126,7 @@ def thPrime4(n):
 
         return primes
 
-    primes = find_primes_under(upper_bound_for_th_prime(n))
+    primes = findPrimesUnder(upperBoundFor(n))
 
     primes = list(primes)
 
