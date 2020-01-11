@@ -6,7 +6,7 @@ def isPrime(num):
     elif num % 2 == 0:
         return False
 
-    elif num >= 1:
+    elif num > 1:
 
         # only checking square root of the number and below to shorten the process
         lim = int(num ** (1 / 2)) + 1
@@ -21,13 +21,19 @@ def isPrime(num):
         return False
 
 
-print("Checking the Number If It Is Prime\n")
+if __name__ == '__main__':
+    print("Checking the Number If It Is Prime\n")
+    while True:
+        try:
+            num = int(input("The number to check  : "))
 
-while True:
-    num = int(input("The number to check  : "))
+            if isPrime(num):
+                print("Prime\n")
 
-    if isPrime(num):
-        print("Prime\n")
+            else:
+                print("Not prime\n")
 
-    else:
-        print("Not prime\n")
+        except:
+            print("Write number")
+
+
